@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+
+<h3 th:utext="${user.getName()}" style="text-align: center; color: blue">
+    Твои данные</h3>
+
+<table border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#7fff00">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Login</th>
+        <th>Password</th>
+        <th>Permissions</th>
+
+    </tr>
+    <tr>
+        <td align="center" th:utext=" ${user.getId()} "></td>
+        <td align="center" th:utext=" ${user.getName()} "></td>
+        <td align="center" th:utext=" ${user.getSurname()} "></td>
+        <td align="center" th:utext=" ${user.getAge()} "></td>
+        <td align="center" th:utext=" ${user.getUsername()} "></td>
+        <td align="center" th:utext=" ${user.getPassword()} "></td>
+        <td align="center" th:utext=" ${user.getRoles()} "></td>
+    </tr>
+</table>
+
+
+</body>
+
+<footer th:insert="logout :: header_fragment"></footer>
+
+</html>

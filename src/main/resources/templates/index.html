@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div style="text-align: center; color: darkred">
+    <th:block th:each="msg : ${messages}">
+        <h1 th:text="${msg}"></h1>
+    </th:block>
+</div>
+<br/>
+<br/>
+<H1 style="text-align: center; color: green">
+    <input style="background-color: darksalmon; font: bold 20px 'Times New Roman'" type="button" value="Войти"
+           onclick="window.location.href='/default-users'">
+</H1>
+
+</body>
+
+</html>

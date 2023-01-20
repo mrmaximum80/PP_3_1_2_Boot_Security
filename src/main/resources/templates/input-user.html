@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NewUser</title>
+</head>
+<body>
+
+<h3 style="text-align: center; color: blue">Введите имя пользователя</h3>
+<table border="1" align="center">
+    <tr>
+        <th>
+
+            <form style="text-align: left" th:method="POST" th:action="@{/admin/add-user}" th:object="${user}">
+                <input type="hidden" th:field="*{id}" id="id">
+                <br/>
+                <label for="name">Имя:</label>
+                <input type="text" th:field="*{name}" id="name">
+                <br/>
+                <label for="surname">Фамилия:</label>
+                <input type="text" th:field="*{surname}" id="surname">
+                <br/>
+                <label for="age">Возраст:</label>
+                <input type="text" th:field="*{age}" id="age">
+                <br/>
+                <input type="hidden" th:field="*{username}">
+                <input type="hidden" th:field="*{password}">
+                <label for="role">Права доступа (используйте Shift):</label>
+
+                <p style="text-align: right">
+                    <select size="2" multiple="multiple" name="role" id="role">
+                        <option th:each="role : ${roles}" th:value="${role.getName()}"
+                                th:selected="${role.getName() == 'ROLE_USER'}"
+                                th:utext="${role.getName()}"
+                        >Пользователь
+                        </option>
+
+                    </select>
+                </p>
+                <br/>
+                <br/>
+                <p style="text-align: center">
+                    <input type="submit" value="Ok">
+                </p>
+            </form>
+        </th>
+    </tr>
+</table>
+
+</body>
+
+<footer th:insert="logout :: header_fragment"></footer>
+
+</html>

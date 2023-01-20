@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<font color="blue"></font>
+<h3 style="text-align: center; color: blue">
+    Страница администратора</h3>
+<div>
+
+    <table border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#eee8aa">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Permissions</th>
+            <th colspan="3">Operations</th>
+        </tr>
+        <tr th:each="user : ${users}">
+
+            <td th:utext=" ${user.getId()}"></td>
+            <td align="center" th:utext=" ${user.getName()} "></td>
+            <td align="center" th:utext=" ${user.getSurname()} "></td>
+            <td align="center" th:utext=" ${user.getAge()} "></td>
+            <td align="center" th:utext=" ${user.getRoles()} "></td>
+            <td align="center">
+                <form th:action="@{admin/update/{id}(id=${user.getId()})}" method="get">
+                    <button style="background-color: green" type="submit">Изменить</button>
+                </form>
+            </td>
+
+            <td align="center">
+                <form th:action="@{admin/delete/{id}(id=${user.getId()})}" method="get">
+                    <button style="background-color: yellow" type="submit">Удалить</button>
+                </form>
+            </td>
+
+            <td align="center">
+                <form th:action="@{admin/look/{id}(id=${user.getId()})}" method="get">
+                    <button style="background-color: red" type="submit">Посмотреть</button>
+                </form>
+            </td>
+
+
+        </tr>
+    </table>
+
+</div>
+<p style="text-align: center;">
+    <input style="background-color: yellow; font: bold 20px 'Times New Roman'" type="button"
+           value="Добавить пользователя"
+           onclick="window.location.href='admin/add'">
+</p>
+
+</body>
+
+<footer th:insert="logout :: header_fragment"></footer>
+
+</html>
