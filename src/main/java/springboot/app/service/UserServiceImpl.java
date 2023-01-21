@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import springboot.app.dao.RoleDAO;
 import springboot.app.dao.UserDAO;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -69,6 +71,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username) {
         return userDAO.getUserByUsername(username);
+    }
+
+    @Override
+    public User createUserPassword(User user) {
+        Long id = userDAO.getAllUsers().stream().map(x -> x.getId()).max(Long::compare).orElse(null);
+        user.setPassword("user" + (id + 1));
+        return user;
+    }
+
+    @Override
+    public User addUserRoles(User user) {
+        List<String> roles = Arrays.asList(user.getRole().split(","));
+        List<Role> roleList = roleDAO.getAllRoles();
+        List<Role> userRoles = new ArrayList<>();
+        for (Role roleFromList : roleList) {
+            for (String role : roles)
+                if (roleFromList.getName().equals(role)) {
+                    userRoles.add(roleFromList);
+                }
+        }
+        user.setRoles(userRoles);
+        return user;
     }
 
 

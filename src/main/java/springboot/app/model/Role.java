@@ -14,14 +14,10 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
     private String name;
 
     @Transient
     @ManyToMany(mappedBy = "roles")
-//    @JoinTable(name = "users_roles)",
-//            joinColumns = @JoinColumn(name = "role_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
     public Role() {

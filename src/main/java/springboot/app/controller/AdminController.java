@@ -33,11 +33,8 @@ public class AdminController {
 
     @GetMapping("/add")
     public String addUserPage(ModelMap model) {
-        // Дефолтные password и username
-        Long id = userService.getAllUsers().stream().map(x -> x.getId()).max(Long::compare).orElse(null);
-        User user = new User();
-        user.setUsername("user" + (id + 1));
-        user.setPassword("user" + (id + 1));
+        // Дефолтный password
+        User user = userService.createUserPassword(new User());
         //-------------------------------------------
         model.addAttribute("user", user);
         model.addAttribute("roles", userService.getAllRoles());
@@ -47,20 +44,10 @@ public class AdminController {
 
     @PostMapping("/add-user")
     public String addUser(@ModelAttribute("user") User user) {
-
         // Добаляем роли
-        List<String> roles = Arrays.asList(user.getRole().split(","));
-        List<Role> roleList = userService.getAllRoles();
-        List<Role> userRoles = new ArrayList<>();
-        for (Role roleFromList : roleList) {
-            for (String role : roles)
-                if (roleFromList.getName().equals(role)) {
-                    userRoles.add(roleFromList);
-                }
-        }
-        user.setRoles(userRoles);
+        User userWithRoles = userService.addUserRoles(user);
         //--------------------------------------
-        userService.saveUser(user);
+        userService.saveUser(userWithRoles);
         return "redirect:/admin";
     }
 
@@ -70,14 +57,23 @@ public class AdminController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, ModelMap model) {
+    public String updateUserPage(@PathVariable("id") long id, ModelMap model) {
         model.addAttribute("user", userService.getUser(id));
         model.addAttribute("roles", userService.getAllRoles());
         model.addAttribute("userroles", new ArrayList<String>());
-        return "input-user";
+        return "update-user";
     }
 
-    @GetMapping("/delete/{id}")
+    @PatchMapping ("/update-user")
+    public String updateUser(@ModelAttribute("user") User user) {
+        // Добаляем роли
+        User userWithRoles = userService.addUserRoles(user);
+        //--------------------------------------
+        userService.saveUser(userWithRoles);
+        return "redirect:/admin";
+    }
+
+    @DeleteMapping("/delete/{id}")
     public String deleteUserPage(@PathVariable("id") long id) {
         userService.deleteUser(id);
         return "redirect:/admin";

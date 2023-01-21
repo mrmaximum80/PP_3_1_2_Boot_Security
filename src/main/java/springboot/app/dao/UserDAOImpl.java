@@ -17,7 +17,6 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         Query query = entityManager.createQuery("from User");
         List<User> users = query.getResultList();
@@ -25,7 +24,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public User getUser(long id) {
         User user = entityManager.find(User.class, id);
         return user;
@@ -50,7 +48,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public User getUserByUsername(String username) {
         Query query = entityManager.createQuery("from User where username = :userlogin");
         query.setParameter("userlogin", username);

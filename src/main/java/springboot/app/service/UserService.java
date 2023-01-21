@@ -27,6 +27,10 @@ public interface UserService extends UserDetailsService {
 
     User getUserByUsername(String username);
 
+    User createUserPassword(User user);
+
+    User addUserRoles(User user);
+
     default void defaultUsers() {
         Role user = new Role("ROLE_USER");
         Role admin = new Role("ROLE_ADMIN");
@@ -42,11 +46,14 @@ public interface UserService extends UserDetailsService {
         adminRoles.add(admin);
 
 
-        saveUser(new User("Иван", "Иванов", 20, "admin", "admin", adminRoles));
-        saveUser(new User("Петр", "Петров", 30, "user2", "user2", userRoles));
-        saveUser(new User("Семен", "Семенов", 40, "user3", "user3", userRoles));
-        saveUser(new User("Василий", "Васильев", 50, "user4", "user4", userRoles));
-        saveUser(new User("Сергей", "Сергеев", 60, "user5", "user5", userRoles));
+        saveUser(new User("Иван", "Иванов", 20, "admin@mail.ru", "admin", adminRoles));
+        saveUser(new User("Петр", "Петров", 30, "user2@mail.ru", "user2", userRoles));
+        saveUser(new User("Семен", "Семенов", 40, "user3@mail.ru", "user3", userRoles));
+        saveUser(new User("Василий", "Васильев", 50, "user4@mail.ru", "user4", userRoles));
+        saveUser(new User("Сергей", "Сергеев", 60, "user5@mail.ru", "user5", userRoles));
 
     }
+
+
+
 }

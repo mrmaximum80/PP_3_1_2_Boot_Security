@@ -22,9 +22,11 @@
                 <input type="text" th:field="*{surname}" id="surname">
                 <br/>
                 <label for="age">Возраст:</label>
-                <input type="text" th:field="*{age}" id="age">
+                <input type="number" th:field="*{age}" id="age">
                 <br/>
-                <input type="hidden" th:field="*{username}">
+                <label for="username">E-mail:</label>
+                <input type="email" th:field="*{username}" id="username">
+                <br/>
                 <input type="hidden" th:field="*{password}">
                 <label for="role">Права доступа (используйте Shift):</label>
 
